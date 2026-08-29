@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sensible Sage</title>
+  <!-- Playfair Display: a bold, elegant serif designed to be bold and highly readable -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Georgia&display=swap" rel="stylesheet">
+  <style>
+
+    body {
+      background-color: #F3EFE6;
+      /* Calm geometric texture: soft, widely-spaced diagonal lines.
+         Much larger scale and lower opacity than a dot grid, so it
+         reads as quiet depth rather than a busy pattern. */
+      background-image:
+        repeating-linear-gradient(
+          135deg,
+          rgba(92,115,70,0.035) 0px,
+          rgba(92,115,70,0.035) 1px,
+          transparent 1px,
+          transparent 60px
+        );
+      color: #33392E;
+      font-family: Georgia, serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Headings get the bold display serif */
+    h1, h2, nav .logo {
+      font-family: 'Playfair Display', serif;
+    }
+
+    h2 {
+      color: #6E5170;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background-color: #FFFFFF;
+      border-bottom: 2px solid #6E5170;
+    }
+
+    nav .logo {
+      font-size: 24px;
+      font-weight: 900;
+      color: #5C7346;
+      -webkit-text-stroke: 0.6px #5C7346;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    nav .logo .est {
+      font-family: Georgia, serif;
+      font-weight: normal;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #6E5170;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav a {
+      color: #33392E;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      color: #6E5170;
+    }
+
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      padding: 60px 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .hero-text {
+      flex: 1;
+    }
+
+    .hero-image {
+      flex: 1;
+    }
+
+    .hero-image img {
+      width: 100%;
+      border-radius: 12px;
+      border: 3px solid #6E5170;
+    }
+
+    h1 {
+      color: #5C7346;
+      font-size: 56px;
+      font-weight: 900;
+      -webkit-text-stroke: 1px #5C7346;
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    button {
+      background-color: #5C7346;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #6E5170;
+    }
+
+    /* ---- EXPLORE SECTION ---- */
+    .explore {
+      text-align: center;
+      padding: 20px 40px 70px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .explore h2 {
+      margin-bottom: 30px;
+      color: #6E5170;
+    }
+
+    .explore-row {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      flex-wrap: wrap;   /* wraps to a new line on narrow screens instead of squishing */
+    }
+
+    .explore-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Icon buttons: round, soft, and understated compared to the
+       bold primary "See Our Menu" button - these are secondary actions */
+    .icon-button {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background-color: #FFFFFF;
+      border: 1px solid var(--line, #DDD5C4);
+      font-size: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .icon-button:hover {
+      background-color: #F1EAF2;
+      border-color: #6E5170;
+      transform: translateY(-2px);
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .explore-label {
+      font-size: 14px;
+      font-family: Georgia, serif;
+      color: #6E5170;
+    }
+
+    @media (max-width: 700px) {
+      .explore-row {
+        gap: 30px;
+      }
+    }
+
+    /* ---- MENU SECTION ---- */
+    /* display: none means "don't show this at all" - not even blank space.
+       JavaScript will change this to display: block when the button is clicked. */
+    #menu-section {
+      display: none;
+      max-width: 700px;
+      margin: 0 auto 60px auto;
+      padding: 0 40px;
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 0;
+      border-bottom: 1px solid #D9CDDA;
+    }
+
+    .menu-item-name {
+      font-size: 18px;
+    }
+
+    .menu-item-price {
+      font-size: 18px;
+      color: #6E5170;
+      font-weight: bold;
+    }
+
+    @media (max-width: 700px) {
+      .hero {
+        flex-direction: column;
+      }
+      nav {
+        flex-direction: column;
+        gap: 16px;
+      }
+      h1 {
+        font-size: 36px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .explore-row {
+        gap: 24px;
+      }
+    }
+
+    /* ---- PRODUCT GALLERY ---- */
+    .gallery {
+      text-align: center;
+      padding: 20px 40px 70px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .gallery-row {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .gallery-card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 14px;
+      width: 220px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .gallery-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+    }
+
+    .gallery-name {
+      font-size: 16px;
+      margin: 12px 0 4px;
+    }
+
+    body.dark-mode {
+      background-color: #1A1D17;
+      color: #E8E4D9;
+    }
+
+    body.dark-mode nav {
+      background-color: #24281E;
+    }
+
+    body.dark-mode nav a {
+      color: #E8E4D9;
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">
+      <span class="est">est. 2026</span>
+      Sensible Sage
+    </div>
+    <ul>
+      <li><a href="#">Shop</a></li>
+      <li><a href="#">Our Story</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Sensible Sage Wellness Apothecary</h1>
+      <p>Slow-grown herbs, small-batch remedies, and a little more calm in your day.</p>
+      <!-- id="menu-button" gives this element a unique name JavaScript can grab onto -->
+      <button id="menu-button">See Our Menu</button>
+      <button id="Dark-Mode-Button" style="position: fixed; bottom: 20px; left: 20px; width: 48px; height: 48px; border-radius: 50%; background-color: #333; font-size: 22px; padding: 0; display: flex; align-items: center; justify-content: center; z-index: 100;">☀️</button>
+    </div>
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1515586000433-45406d8e6662?w=600" alt="Dried herbs and sage in a bowl">
+    </div>
+  </section>
+
+  <!-- ---- NEW: Explore section with icon buttons ---- -->
+  <section class="explore">
+    <h2>Explore Sensible Sage</h2>
+    <div class="explore-row">
+
+      <div class="explore-item">
+        <button id="thanks-button" class="icon-button">👋</button>
+        <span class="explore-label">Say Hi</span>
+      </div>
+
+      <div class="explore-item">
+        <button id="Sage-Advice-button" class="icon-button">🧘</button>
+        <span class="explore-label">Get Sage Advice</span>
+      </div>
+
+      <div class="explore-item">
+        <button id="Random-Tip-Generator" class="icon-button">🥠</button>
+        <span class="explore-label">Random Tip</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ---- NEW: Product gallery, tied to menu items ---- -->
+  <section class="gallery">
+    <h2>Our Products</h2>
+    <div class="gallery-row">
+
+      <div class="gallery-card">
+        <img src="https://images.unsplash.com/photo-1749105862005-6e0409c8c55a?w=500" alt="Cup of chamomile tea">
+        <p class="gallery-name">Chamomile Calm Tea</p>
+      </div>
+
+      <div class="gallery-card">
+        <img src="https://images.unsplash.com/photo-1671493228689-754b0f200c84?w=500" alt="Amber glass tincture bottle">
+        <p class="gallery-name">Sage & Lemon Tincture</p>
+      </div>
+
+      <div class="gallery-card">
+        <img src="https://images.unsplash.com/photo-1631167777409-d17fb7e3a926?w=500" alt="Bundle of dried lavender">
+        <p class="gallery-name">Lavender Sleep Balm</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- This whole section starts hidden (see CSS above) -->
+  <section id="menu-section">
+    <h2>Our Menu</h2>
+    <div class="menu-item">
+      <span class="menu-item-name">Chamomile Calm Tea</span>
+      <span class="menu-item-price">$12</span>
+    </div>
+    <div class="menu-item">
+      <span class="menu-item-name">Sage & Lemon Tincture</span>
+      <span class="menu-item-price">$24</span>
+    </div>
+    <div class="menu-item">
+      <span class="menu-item-name">Lavender Sleep Balm</span>
+      <span class="menu-item-price">$18</span>
+    </div>
+  </section>
+
+  <script>
+    // Step 1: "grab" the button and the menu section from the page by their id
+    const menuButton = document.getElementById('menu-button');
+    const menuSection = document.getElementById('menu-section');
+
+    // Step 2: tell the browser "when this button is clicked, run this function"
+    menuButton.addEventListener('click', function() {
+
+      // Step 3: check the menu's current state, and flip it
+      if (menuSection.style.display === 'block') {
+        menuSection.style.display = 'none';   // hide it if it's showing
+        menuButton.textContent = 'See Our Menu';
+      } else {
+        menuSection.style.display = 'block';  // show it if it's hidden
+        menuButton.textContent = 'Hide Menu';
+      }
+
+    });
+
+    // ---- Our second, brand-new button ----
+    // Same 3 ingredients: an HTML element (added above), find it, listen for a click
+    const thanksButton = document.getElementById('thanks-button');
+
+    thanksButton.addEventListener('click', function() {
+      alert('The Sensible Sage says Hi and thanks for stopping by!');
+    });
+
+    // ----- Third button: Get Sage Advice -----
+    // Line A: "find" the button using the exact same id you gave it in HTML
+    const sageAdviceButton = document.getElementById('Sage-Advice-button');
+    // Line B: tell it what to do when clicked
+    sageAdviceButton.addEventListener('click', function() {
+      alert('The Sensible Sage has some wisdom to share! Do not try to arouse or awaken love. It will do so when it desires.');
+    });
+
+    // Fourth Button: Generate Random Tip
+    const randomTipButton = document.getElementById('Random-Tip-Generator');
+    randomTipButton.addEventListener('click', function() {
+      const tips = [
+        "Take a deep breath and center yourself.",
+        "Listen to your body and give it what it needs.",
+        "Practice gratitude for the small things in life.",
+        "Too err is human."
+      ];
+      const randomTip = tips[Math.floor(Math.random() * tips.length)];
+      alert(randomTip);
+    });
+
+    // Fifth Button: Toggle Dark Mode
+    const darkModeButton = document.getElementById('Dark-Mode-Button');
+    darkModeButton.addEventListener('click', function() {
+      document.body.classList.toggle('dark-mode');
+
+      // check current state, swap the icon to match
+      if (document.body.classList.contains('dark-mode')) {
+        darkModeButton.textContent = '🌙';
+      } else {
+        darkModeButton.textContent = '☀️';
+      }
+    });
+  </script>
+
+</body>
+</html>
